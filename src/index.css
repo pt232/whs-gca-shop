@@ -1,0 +1,33 @@
+@import url("./styles/variables.css");
+@import url("./styles/utils.css");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--color-black);
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+}
+
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  font-size: 1.6rem;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+img {
+  width: 100%;
+}

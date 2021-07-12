@@ -1,0 +1,81 @@
+.nav {
+  height: 7rem;
+  background-color: var(--color-black);
+}
+
+.nav__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.nav__logo {
+  width: 20rem;
+}
+
+.nav__cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 2rem;
+  border: 1px solid transparent;
+  border-left-color: var(--color-gray-dark);
+  border-right-color: var(--color-gray-dark);
+}
+
+.nav__cart-icon {
+  margin-bottom: 1rem;
+  color: var(--color-gray-dark);
+  font-size: 1.4rem;
+}
+
+.nav__cart-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.cart-text {
+  margin-right: 0.5rem;
+  color: var(--color-gray-dark);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.cart-text:hover {
+  text-decoration: underline;
+}
+
+.cart-text:only-child {
+  margin-right: 0;
+}
+
+.cart-amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-cyan);
+  color: var(--color-black);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 50%;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 33rem;
+  background-image: url("../../images/hero.png");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.hero__img {
+  width: 25rem;
+}
