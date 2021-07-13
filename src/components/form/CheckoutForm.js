@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./CheckoutForm.css";
 
 const CheckoutForm = () => {
+  const history = useHistory();
+
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
   const [zipCode, setZipCode] = useState();
@@ -28,6 +31,7 @@ const CheckoutForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    history.push("/cart/confirmation");
   };
 
   return (
