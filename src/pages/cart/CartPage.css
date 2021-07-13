@@ -1,0 +1,40 @@
+.cart {
+  padding: 6.5rem 0;
+  flex: 1;
+  background-color: var(--color-background);
+}
+
+.cart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart__title {
+  font-size: 3.6rem;
+}
+
+.cart__btn {
+  margin-right: 2rem;
+}
+
+.cart__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.cart__body > * {
+  margin-bottom: 3rem;
+}
+
+.cart__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart__form > *:first-child {
+  margin-bottom: 5rem;
+}

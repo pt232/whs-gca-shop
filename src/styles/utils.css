@@ -4,3 +4,22 @@
   max-width: 114rem;
   margin: 0 auto;
 }
+
+.btn {
+  padding: 1rem 1.5rem;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn--gray {
+  background-color: #e9ecef;
+  border-color: #d1d7dc;
+}
+
+.btn--cyan {
+  background-color: var(--color-cyan);
+  border-color: var(--color-cyan);
+}

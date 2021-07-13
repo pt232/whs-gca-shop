@@ -1,0 +1,14 @@
+.cost-card {
+  padding: 2rem 4rem;
+  text-align: center;
+}
+
+.cost-card__shipping {
+  margin-bottom: 1rem;
+  color: var(--color-gray-darker);
+  font-size: 1.8rem;
+}
+
+.cost-card__total {
+  font-size: 2.2rem;
+}

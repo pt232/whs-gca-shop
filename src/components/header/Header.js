@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../images/logo.svg";
@@ -7,6 +7,8 @@ import logoHero from "../../images/logo-hero.svg";
 import "./Header.css";
 
 const Header = () => {
+  const location = useLocation();
+
   return (
     <header>
       <nav className="nav">
@@ -23,7 +25,7 @@ const Header = () => {
                 className="nav__cart-icon"
               />
               <div className="nav__cart-wrapper">
-                <Link to="/" className="cart-text">
+                <Link to="/cart" className="cart-text">
                   Cart
                 </Link>
                 <span className="cart-amount">1</span>
@@ -32,9 +34,11 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      <div className="hero">
-        <img src={logoHero} alt="Logo Hero" className="hero__img" />
-      </div>
+      {location.pathname !== "/cart" ? (
+        <div className="hero">
+          <img src={logoHero} alt="Logo Hero" className="hero__img" />
+        </div>
+      ) : null}
     </header>
   );
 };

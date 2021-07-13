@@ -2,9 +2,13 @@ import React from "react";
 import productImage from "../../../images/product-1.jpg";
 import "./ProductCard.css";
 
-const ProductCard = () => {
+const ProductCard = ({ orientation }) => {
   return (
-    <div className="product-card">
+    <div
+      className={`product-card ${
+        orientation === "horizontal" ? "product-card--horizontal" : ""
+      }`}
+    >
       <div className="product-card__wrapper">
         <img src={productImage} alt="Product 1" className="product-card__img" />
         <div className="product-card__overlay" />
