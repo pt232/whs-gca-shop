@@ -15,7 +15,12 @@ export const ShippingProvider = ({ children }) => {
 
   const getShippingCost = async () => {
     try {
-      const res = await axios.get("http://localhost:8082/api/v1/shipping/");
+      const res = await axios.get("http://localhost:8082/api/v1/shipping/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_SHIPPING_COST,

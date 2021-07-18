@@ -16,7 +16,12 @@ export const CheckoutProvider = ({ children }) => {
 
   const getOrderDetails = async () => {
     try {
-      const res = await axios.get("http://localhost:8083/api/v1/checkout/");
+      const res = await axios.get("http://localhost:8083/api/v1/checkout/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_CHECKOUT_ORDER,

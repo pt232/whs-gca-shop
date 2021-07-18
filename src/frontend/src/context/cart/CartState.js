@@ -25,7 +25,12 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntriesAmount = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/amount/");
+      const res = await axios.get("http://localhost:8081/api/v1/cart/amount/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_CART_ENTRIES_AMOUNT,
@@ -42,7 +47,12 @@ export const CartProvider = ({ children }) => {
 
   const getTotalCost = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/cost/");
+      const res = await axios.get("http://localhost:8081/api/v1/cart/cost/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_TOTAL_COST,
@@ -59,7 +69,12 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntries = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/");
+      const res = await axios.get("http://localhost:8081/api/v1/cart/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_CART_ENTRIES,
@@ -76,18 +91,17 @@ export const CartProvider = ({ children }) => {
 
   const addCartEntry = async (productId) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
       await axios.post(
         "http://localhost:8081/api/v1/cart/",
         {
           productId: productId,
         },
-        config
+        {
+          auth: {
+            username: "user1",
+            password: "user1Pass",
+          },
+        }
       );
 
       dispatch({
@@ -104,7 +118,12 @@ export const CartProvider = ({ children }) => {
 
   const deleteCartEntries = async () => {
     try {
-      await axios.delete("http://localhost:8081/api/v1/cart/");
+      await axios.delete("http://localhost:8081/api/v1/cart/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: DELETE_CART_ENTRIES,

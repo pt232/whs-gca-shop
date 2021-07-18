@@ -28,13 +28,18 @@ const CartPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        Loading...
+      </div>
+    );
 
   return (
     <section className="cart">
       <div className="container">
         <>
-          {cartEntries.length === 0 ? (
+          {!loading && cartEntries && cartEntries.length === 0 ? (
             <EmptyCard />
           ) : (
             <>
@@ -55,21 +60,15 @@ const CartPage = () => {
                 </div>
               </div>
               <div className="cart__body">
-                {loading ? (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    Loading...
-                  </div>
-                ) : (
-                  cartEntries.map((product) => {
-                    return (
-                      <ProductCard
-                        key={product.id}
-                        orientation="horizontal"
-                        product={product}
-                      />
-                    );
-                  })
-                )}
+                {cartEntries.map((product) => {
+                  return (
+                    <ProductCard
+                      key={product.id}
+                      orientation="horizontal"
+                      product={product}
+                    />
+                  );
+                })}
                 <CostCard shippingCost={shippingCost} totalCost={totalCost} />
               </div>
               <div className="cart__form">

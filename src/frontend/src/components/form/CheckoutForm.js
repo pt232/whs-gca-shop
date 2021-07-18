@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import "./CheckoutForm.css";
 
 const CheckoutForm = () => {
@@ -32,16 +32,13 @@ const CheckoutForm = () => {
   const [month, setMonth] = useState("January");
   const [year, setYear] = useState(2021);
   const [cvv, setCvv] = useState("123");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    setLoading(true);
 
     const res = await axios.post(
       "http://localhost:8083/api/v1/checkout/",
@@ -57,13 +54,20 @@ const CheckoutForm = () => {
         year: year,
         cvv: cvv,
       },
-      config
+      {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      }
     );
 
     if (res.data.success) {
       setError("");
+      setLoading(false);
       history.push("/cart/confirmation");
     } else {
+      setLoading(false);
       setError(res.data.message);
     }
   };
@@ -249,8 +253,16 @@ const CheckoutForm = () => {
             />
           </div>
         </div>
-        <button type="submit" className="checkout-form__btn btn btn--cyan">
-          Place Order
+        <button
+          type="submit"
+          style={
+            loading
+              ? { backgroundColor: "#4bc7c787", borderColor: "#4bc7c787" }
+              : {}
+          }
+          className="checkout-form__btn btn btn--cyan"
+        >
+          {loading ? "Place Order..." : "Place Order"}
         </button>
       </form>
     </>

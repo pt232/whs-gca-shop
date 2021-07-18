@@ -16,7 +16,12 @@ export const ProductProvider = ({ children }) => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/v1/products/");
+      const res = await axios.get("http://localhost:8080/api/v1/products/", {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: GET_PRODUCTS,
@@ -32,7 +37,12 @@ export const ProductProvider = ({ children }) => {
 
   const deleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/products/${productId}`);
+      await axios.delete(`http://localhost:8080/api/v1/products/${productId}`, {
+        auth: {
+          username: "user1",
+          password: "user1Pass",
+        },
+      });
 
       dispatch({
         type: DELETE_PRODUCT,
