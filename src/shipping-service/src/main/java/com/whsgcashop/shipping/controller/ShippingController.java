@@ -1,5 +1,7 @@
 package com.whsgcashop.shipping.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,14 +18,17 @@ public class ShippingController {
 
 	@Autowired
 	private ShippingService shippingService;
+	private static final Logger LOG = LoggerFactory.getLogger(ShippingController.class);
 
 	@GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Double getShippingCost() {
+		LOG.info("Calling getShippingCost method inside ShippingController class");
 		return shippingService.getShippingCost();
 	}
 
 	@GetMapping(path = "/tracking", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getTrackingNumber() {
+		LOG.info("Calling getTrackingNumber method inside ShippingController class");
 		return shippingService.getTrackingNumber();
 	}
 

@@ -3,6 +3,8 @@ package com.whsgcashop.catalog.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.whsgcashop.catalog.model.Product;
@@ -12,8 +14,11 @@ public class CatalogService {
 
 	private static List<Product> productList = new ArrayList<Product>();
 	private List<Integer> removedProductIdsList = new ArrayList<Integer>();
+	private static final Logger LOG = LoggerFactory.getLogger(CatalogService.class);
 
 	static {
+		LOG.info("Adding static Products for the Catalog Service");
+
 		productList.add(new Product(1,
 				"https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/typewriter.jpg",
 				"Vintage Typewriter", 67.98));
@@ -47,6 +52,8 @@ public class CatalogService {
 	}
 
 	public List<Product> getProducts() {
+		LOG.info("Calling getProducts method inside CatalogService class");
+
 		List<Product> filteredProducts = new ArrayList<Product>();
 
 		for (Product p : productList) {
@@ -59,6 +66,8 @@ public class CatalogService {
 	}
 
 	public Product getProductById(int productId) {
+		LOG.info("Calling getProductById method inside CatalogService class");
+
 		for (int i = 0; i < productList.size(); i++) {
 			Product p = productList.get(i);
 			if (p.getId() == productId) {
@@ -69,10 +78,13 @@ public class CatalogService {
 	}
 	
 	public void updateProductActiveStatus() {
-		removedProductIdsList.clear();	
+		LOG.info("Calling updateProductActiveStatus method inside CatalogService class");
+		removedProductIdsList.clear();
 	}
 
 	public void deleteProduct(int productId) {
+		LOG.info("Calling deleteProduct method inside CatalogService class");
+
 		for (Product p : productList) {
 			if (p.getId() == productId) {
 				removedProductIdsList.add(p.getId());

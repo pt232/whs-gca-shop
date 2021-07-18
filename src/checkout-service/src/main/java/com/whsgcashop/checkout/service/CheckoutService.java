@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,12 +22,16 @@ public class CheckoutService {
 	@Autowired
 	private RestTemplate restTemplate;
 	private List<ResponseTemplate> resList = new ArrayList<ResponseTemplate>();
+	private static final Logger LOG = LoggerFactory.getLogger(CheckoutService.class);
 
 	public ResponseTemplate getOrder() {
+		LOG.info("Calling getOrder method inside CheckoutService class");
 		return resList.get(resList.size() - 1);
 	}
 
 	public ResponseTemplate createOrder(Order order) {
+		LOG.info("Calling createOrder method inside CheckoutService class");
+
 		ResponseTemplate resTemplate = new ResponseTemplate();
 
 		String mailRegex = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
@@ -97,18 +103,24 @@ public class CheckoutService {
 	}
 
 	private boolean validateUserInput(String regex, String input) {
+		LOG.info("Calling validateUserInput method inside CheckoutService class");
+
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(input);
 		return matcher.matches();
 	}
 
 	private boolean validateDate(String month, int year) {
+		LOG.info("Calling validateDate method inside CheckoutService class");
+
 		String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 				"Oktober", "November", "December" };
 		return Arrays.asList(months).contains(month) && year >= 2021 && year <= 2025;
 	}
 
 	private String generateOrderNumber() {
+		LOG.info("Calling generateOrderNumber method inside CheckoutService class");
+
 		int low = 100000000;
 		int high = 999999999;
 		int randomNumber = low + (int) (Math.random() * (high - low + 1));

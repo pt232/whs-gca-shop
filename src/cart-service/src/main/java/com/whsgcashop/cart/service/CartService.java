@@ -3,6 +3,8 @@ package com.whsgcashop.cart.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,12 +18,16 @@ public class CartService {
 	@Autowired
 	private RestTemplate restTemplate;
 	private List<CartEntry> cartEntries = new ArrayList<CartEntry>();
+	private static final Logger LOG = LoggerFactory.getLogger(CartService.class);
 
 	public Integer getEntriesAmount() {
+		LOG.info("Calling getEntriesAmount method inside CartService class");
 		return cartEntries.size();
 	}
 
 	public Double getTotalCost() {
+		LOG.info("Calling getTotalCost method inside CartService class");
+
 		double totalCost = 0.0;
 		double shippingCost = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/", Double.class);
 
@@ -37,6 +43,8 @@ public class CartService {
 	}
 
 	public List<Product> getCartEntries() {
+		LOG.info("Calling getCartEntries method inside CartService class");
+
 		List<Product> products = new ArrayList<Product>();
 
 		for (CartEntry cartEntry : cartEntries) {
@@ -49,6 +57,8 @@ public class CartService {
 	}
 
 	public CartEntry addEntry(CartEntry entry) {
+		LOG.info("Calling addEntry method inside CartService class");
+
 		boolean isInCart = cartEntries.stream().anyMatch(e -> e.getProductId() == entry.getProductId());
 		if (!isInCart) {
 			cartEntries.add(entry);
@@ -58,6 +68,8 @@ public class CartService {
 	}
 
 	public void deleteCartEntries() {
+		LOG.info("Calling deleteCartEntries method inside CartService class");
+
 		restTemplate.put("http://localhost:8080/api/v1/products/", null);
 		cartEntries.clear();
 	}
