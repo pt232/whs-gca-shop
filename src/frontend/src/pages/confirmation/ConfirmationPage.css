@@ -1,0 +1,51 @@
+.confirmation {
+  padding: 6.5rem 0;
+  flex: 1;
+  background-color: var(--color-background);
+}
+
+.confirmation__title {
+  margin-bottom: 5rem;
+  font-size: 3.6rem;
+}
+
+.confirmation__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirmation__box {
+  margin-right: 6rem;
+  padding: 2rem;
+  background-color: var(--color-gray);
+}
+
+.confirmation__box > *:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.details-card:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.details-card__title {
+  margin-bottom: 1rem;
+  font-size: 3.2rem;
+}
+
+.details-card__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.details-card__information {
+  flex: 1 1 100%;
+  margin-bottom: 0.5rem;
+}
+
+.details-card__content {
+  flex: 1 1 100%;
+  text-align: left;
+}

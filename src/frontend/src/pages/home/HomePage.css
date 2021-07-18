@@ -1,0 +1,26 @@
+.home {
+  padding: 6.5rem 0;
+  flex: 1;
+  background-color: var(--color-background);
+}
+
+.home__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__img {
+  width: 15rem;
+  margin-bottom: 4.5rem;
+}
+
+.home__products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 30rem);
+  grid-column-gap: 2.5rem;
+  grid-row-gap: 4.5rem;
+  justify-content: center;
+  width: 100%;
+}

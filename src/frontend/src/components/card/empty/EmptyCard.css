@@ -1,0 +1,11 @@
+.empty-card__title {
+  font-size: 3.6rem;
+}
+
+.empty-card__text {
+  margin: 1rem 0 2rem 0;
+}
+
+.empty-card__btn {
+  display: inline-block;
+}
