@@ -1,0 +1,43 @@
+server:
+  port: 8083
+
+logging.level.com.whsgcashop.checkout: INFO
+
+resilience4j.timelimiter:
+  instances:
+    checkoutService:
+      timeoutDuration: 2s
+      cancelRunningFuture: true
+resilience4j.retry:
+  instances:
+    checkoutService:
+      maxRetryAttempts: 3
+      waitDuration: 5s
+      retryExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+      ignoreExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 100
+      permittedNumberOfCallsInHalfOpenState: 10
+      waitDurationInOpenState: 10
+      failureRateThreshold: 60
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+  instances:
+    checkoutService:
+      baseConfig: default
+resilience4j.bulkhead:
+  instances:
+    checkoutService:
+      maxConcurrentCalls: 10
+      maxWaitDuration: 10ms
+resilience4j.ratelimiter:
+  instances:
+    checkoutService:
+      limitForPeriod: 5
+      limitRefreshPeriod: 60s
+      timeoutDuration: 0

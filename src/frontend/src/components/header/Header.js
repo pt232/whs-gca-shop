@@ -35,7 +35,9 @@ const Header = () => {
                 <Link to="/cart" className="cart-text">
                   Cart
                 </Link>
-                <span className="cart-amount">{cartEntriesAmount}</span>
+                <span className="cart-amount">
+                  {isNaN(cartEntriesAmount) ? 0 : cartEntriesAmount}
+                </span>
               </div>
             </div>
           </div>

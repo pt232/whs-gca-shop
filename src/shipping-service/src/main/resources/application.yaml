@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+logging.level.com.whsgcashop.shipping: INFO
+
+resilience4j.timelimiter:
+  instances:
+    shippingService:
+      timeoutDuration: 2s
+      cancelRunningFuture: true
+resilience4j.retry:
+  instances:
+    shippingService:
+      maxRetryAttempts: 3
+      waitDuration: 5s
+      retryExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+      ignoreExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 100
+      permittedNumberOfCallsInHalfOpenState: 10
+      waitDurationInOpenState: 10
+      failureRateThreshold: 60
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+  instances:
+    shippingService:
+      baseConfig: default
+resilience4j.bulkhead:
+  instances:
+    shippingService:
+      maxConcurrentCalls: 10
+      maxWaitDuration: 10ms
+resilience4j.ratelimiter:
+  instances:
+    shippingService:
+      limitForPeriod: 5
+      limitRefreshPeriod: 60s
+      timeoutDuration: 0

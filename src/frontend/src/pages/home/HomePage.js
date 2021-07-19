@@ -23,7 +23,7 @@ const HomePage = () => {
             </div>
           ) : (
             <div className="home__products">
-              {products.length === 0 ? (
+              {!Array.isArray(products) || products.length === 0 ? (
                 <div
                   style={{
                     display: "flex",
@@ -33,9 +33,10 @@ const HomePage = () => {
                   Hier gibt es leider keine Produkte mehr.
                 </div>
               ) : null}
-              {products.map((product) => {
-                return <ProductCard key={product.id} product={product} />;
-              })}
+              {Array.isArray(products) &&
+                products.map((product) => {
+                  return <ProductCard key={product.id} product={product} />;
+                })}
             </div>
           )}
         </div>

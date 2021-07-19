@@ -2,6 +2,7 @@ package com.whsgcashop.shipping.service;
 
 import java.util.UUID;
 
+import com.whsgcashop.shipping.utils.ResilienceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ShippingService {
 	public Double getShippingCost() {
 		LOG.info("Calling getShippingCost method inside ShippingService class");
 
+		ResilienceUtils.randomTimeout();
+		ResilienceUtils.randomFail();
+
 		Product[] products = restTemplate.getForObject("http://localhost:8081/api/v1/cart/", Product[].class);
 		double totalCost = 0;
 
@@ -32,6 +36,10 @@ public class ShippingService {
 
 	public String getTrackingNumber() {
 		LOG.info("Calling getTrackingNumber method inside ShippingService class");
+
+		ResilienceUtils.randomTimeout();
+		ResilienceUtils.randomFail();
+
 		return UUID.randomUUID().toString();
 	}
 

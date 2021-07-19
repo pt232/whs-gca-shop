@@ -39,7 +39,7 @@ const CartPage = () => {
     <section className="cart">
       <div className="container">
         <>
-          {!loading && cartEntries && cartEntries.length === 0 ? (
+          {!Array.isArray(cartEntries) || cartEntries.length === 0 ? (
             <EmptyCard />
           ) : (
             <>
@@ -60,15 +60,16 @@ const CartPage = () => {
                 </div>
               </div>
               <div className="cart__body">
-                {cartEntries.map((product) => {
-                  return (
-                    <ProductCard
-                      key={product.id}
-                      orientation="horizontal"
-                      product={product}
-                    />
-                  );
-                })}
+                {Array.isArray(cartEntries) &&
+                  cartEntries.map((product) => {
+                    return (
+                      <ProductCard
+                        key={product.id}
+                        orientation="horizontal"
+                        product={product}
+                      />
+                    );
+                  })}
                 <CostCard shippingCost={shippingCost} totalCost={totalCost} />
               </div>
               <div className="cart__form">
