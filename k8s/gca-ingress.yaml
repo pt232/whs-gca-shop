@@ -1,0 +1,32 @@
+# Ingress as en Entrypoint for the Application
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gca-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: gca-shop.local
+      http:
+        paths:
+          - path: /api/v1/products
+            backend:
+              serviceName: catalog-service
+              servicePort: 8080
+          - path: /api/v1/cart
+            backend:
+              serviceName: cart-service
+              servicePort: 8081
+          - path: /api/v1/shipping
+            backend:
+              serviceName: shipping-service
+              servicePort: 8082
+          - path: /api/v1/checkout
+            backend:
+              serviceName: checkout-service
+              servicePort: 8083
+          - path: /
+            backend:
+              serviceName: frontend-service
+              servicePort: 3000
