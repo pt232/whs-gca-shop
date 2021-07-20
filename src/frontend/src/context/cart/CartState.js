@@ -25,12 +25,15 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntriesAmount = async () => {
     try {
-      const res = await axios.get(`${process.env.CART_SERVICE}amount/`, {
-        auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
-        },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_CART_SERVICE}amount/`,
+        {
+          auth: {
+            username: process.env.REACT_APP_AUTH_USERNAME,
+            password: process.env.REACT_APP_AUTH_PASSWORD,
+          },
+        }
+      );
 
       dispatch({
         type: GET_CART_ENTRIES_AMOUNT,
@@ -47,12 +50,15 @@ export const CartProvider = ({ children }) => {
 
   const getTotalCost = async () => {
     try {
-      const res = await axios.get(`${process.env.CART_SERVICE}cost/`, {
-        auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
-        },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_CART_SERVICE}cost/`,
+        {
+          auth: {
+            username: process.env.REACT_APP_AUTH_USERNAME,
+            password: process.env.REACT_APP_AUTH_PASSWORD,
+          },
+        }
+      );
 
       dispatch({
         type: GET_TOTAL_COST,
@@ -69,10 +75,10 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntries = async () => {
     try {
-      const res = await axios.get(`${process.env.CART_SERVICE}`, {
+      const res = await axios.get(`${process.env.REACT_APP_CART_SERVICE}`, {
         auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
+          username: process.env.REACT_APP_AUTH_USERNAME,
+          password: process.env.REACT_APP_AUTH_PASSWORD,
         },
       });
 
@@ -92,14 +98,14 @@ export const CartProvider = ({ children }) => {
   const addCartEntry = async (productId) => {
     try {
       await axios.post(
-        `${process.env.CART_SERVICE}`,
+        `${process.env.REACT_APP_CART_SERVICE}`,
         {
           productId: productId,
         },
         {
           auth: {
-            username: process.env.AUTH_USERNAME,
-            password: process.env.AUTH_PASSWORD,
+            username: process.env.REACT_APP_AUTH_USERNAME,
+            password: process.env.REACT_APP_AUTH_PASSWORD,
           },
         }
       );
@@ -118,10 +124,10 @@ export const CartProvider = ({ children }) => {
 
   const deleteCartEntries = async () => {
     try {
-      await axios.delete(`${process.env.CART_SERVICE}`, {
+      await axios.delete(`${process.env.REACT_APP_CART_SERVICE}`, {
         auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
+          username: process.env.REACT_APP_AUTH_USERNAME,
+          password: process.env.REACT_APP_AUTH_PASSWORD,
         },
       });
 

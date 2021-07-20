@@ -16,10 +16,10 @@ export const ProductProvider = ({ children }) => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get(`${process.env.CATALOG_SERVICE}`, {
+      const res = await axios.get(`${process.env.REACT_APP_CATALOG_SERVICE}`, {
         auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
+          username: process.env.REACT_APP_AUTH_USERNAME,
+          password: process.env.REACT_APP_AUTH_PASSWORD,
         },
       });
 
@@ -37,12 +37,15 @@ export const ProductProvider = ({ children }) => {
 
   const deleteProduct = async (productId) => {
     try {
-      await axios.delete(`${process.env.CATALOG_SERVICE}${productId}`, {
-        auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_CATALOG_SERVICE}${productId}`,
+        {
+          auth: {
+            username: process.env.REACT_APP_AUTH_USERNAME,
+            password: process.env.REACT_APP_AUTH_PASSWORD,
+          },
+        }
+      );
 
       dispatch({
         type: DELETE_PRODUCT,

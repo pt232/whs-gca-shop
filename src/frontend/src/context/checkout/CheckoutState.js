@@ -16,10 +16,10 @@ export const CheckoutProvider = ({ children }) => {
 
   const getOrderDetails = async () => {
     try {
-      const res = await axios.get(`${process.env.CHECKOUT_SERVICE}`, {
+      const res = await axios.get(`${process.env.REACT_APP_CHECKOUT_SERVICE}`, {
         auth: {
-          username: process.env.AUTH_USERNAME,
-          password: process.env.AUTH_PASSWORD,
+          username: process.env.REACT_APP_AUTH_USERNAME,
+          password: process.env.REACT_APP_AUTH_PASSWORD,
         },
       });
 
