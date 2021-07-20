@@ -3,15 +3,9 @@ package com.whsgcashop.cart.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.whsgcashop.cart.utils.ResilienceUtils;
-import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,81 +15,65 @@ import com.whsgcashop.cart.model.CartEntry;
 @Service
 public class CartService {
 
-	@Autowired
-	private RestTemplate restTemplate;
-	private List<CartEntry> cartEntries = new ArrayList<CartEntry>();
-	private static final Logger LOG = LoggerFactory.getLogger(CartService.class);
+    @Autowired
+    private RestTemplate restTemplate;
+    private List<CartEntry> cartEntries = new ArrayList<CartEntry>();
+    private static final Logger LOG = LoggerFactory.getLogger(CartService.class);
 
-	public Integer getEntriesAmount() {
-		LOG.info("Calling getEntriesAmount method inside CartService class");
+    public Integer getEntriesAmount() {
+        LOG.info("Calling getEntriesAmount method inside CartService class");
+        return cartEntries.size();
+    }
 
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
+    public Double getTotalCost() {
+        LOG.info("Calling getTotalCost method inside CartService class");
 
-		return cartEntries.size();
-	}
+        double totalCost = 0.0;
+        double shippingCost = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/", Double.class);
 
-	public Double getTotalCost() {
-		LOG.info("Calling getTotalCost method inside CartService class");
+        totalCost += shippingCost;
 
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
+        for (CartEntry cartEntry : cartEntries) {
+            Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
+                    Product.class);
+            totalCost += p.getPrice();
+        }
 
-		double totalCost = 0.0;
-		double shippingCost = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/", Double.class);
+        return totalCost;
+    }
 
-		totalCost += shippingCost;
+    public List<Product> getCartEntries() {
+        LOG.info("Calling getCartEntries method inside CartService class");
 
-		for (CartEntry cartEntry : cartEntries) {
-			Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
-					Product.class);
-			totalCost += p.getPrice();
-		}
+        List<Product> products = new ArrayList<Product>();
 
-		return totalCost;
-	}
+        for (CartEntry cartEntry : cartEntries) {
+            Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
+                    Product.class);
+            products.add(p);
+        }
 
-	public List<Product> getCartEntries() {
-		LOG.info("Calling getCartEntries method inside CartService class");
+        return products;
+    }
 
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
+    public CartEntry addEntry(CartEntry entry) {
+        LOG.info("Calling addEntry method inside CartService class");
 
-		List<Product> products = new ArrayList<Product>();
+        boolean isInCart = cartEntries.stream().anyMatch(e -> e.getProductId() == entry.getProductId());
+        if (!isInCart) {
+            cartEntries.add(entry);
+            return entry;
+        }
+        return null;
+    }
 
-		for (CartEntry cartEntry : cartEntries) {
-			Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
-					Product.class);
-			products.add(p);
-		}
+    public String deleteCartEntries() {
+        LOG.info("Calling deleteCartEntries method inside CartService class");
 
-		return products;
-	}
+        restTemplate.put("http://localhost:8080/api/v1/products/", null);
+        cartEntries.clear();
 
-	public CartEntry addEntry(CartEntry entry) {
-		LOG.info("Calling addEntry method inside CartService class");
-
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
-
-		boolean isInCart = cartEntries.stream().anyMatch(e -> e.getProductId() == entry.getProductId());
-		if (!isInCart) {
-			cartEntries.add(entry);
-			return entry;
-		}
-		return null;
-	}
-
-	public String deleteCartEntries() {
-		LOG.info("Calling deleteCartEntries method inside CartService class");
-
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
-
-		restTemplate.put("http://localhost:8080/api/v1/products/", null);
-		cartEntries.clear();
-
-		return "Deleted Cart Entries";
-	}
+        return "Deleted Cart Entries";
+    }
 
 }

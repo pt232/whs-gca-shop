@@ -38,6 +38,6 @@ resilience4j.bulkhead:
 resilience4j.ratelimiter:
   instances:
     checkoutService:
-      limitForPeriod: 5
+      limitForPeriod: 10
       limitRefreshPeriod: 60s
       timeoutDuration: 0

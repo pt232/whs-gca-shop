@@ -27,17 +27,12 @@ public class CheckoutService {
 
 	public ResponseTemplate getOrder() {
 		LOG.info("Calling getOrder method inside CheckoutService class");
-
-		ResilienceUtils.randomTimeout();
-		ResilienceUtils.randomFail();
-
 		return resList.get(resList.size() - 1);
 	}
 
 	public ResponseTemplate createOrder(Order order) {
 		LOG.info("Calling createOrder method inside CheckoutService class");
 
-		ResilienceUtils.randomTimeout();
 		ResilienceUtils.randomFail();
 
 		ResponseTemplate resTemplate = new ResponseTemplate();

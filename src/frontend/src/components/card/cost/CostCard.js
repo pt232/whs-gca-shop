@@ -5,10 +5,22 @@ const CostCard = ({ shippingCost, totalCost }) => {
   return (
     <div className="cost-card">
       <p className="cost-card__shipping">
-        Shipping Cost: <strong>USD {shippingCost.toFixed(2)}</strong>
+        Shipping Cost:{" "}
+        <strong>
+          USD{" "}
+          {!isNaN(shippingCost)
+            ? shippingCost.toFixed(2)
+            : "Please Reload this Page, and try again!"}
+        </strong>
       </p>
       <p className="cost-card__total">
-        Total Cost: <strong>USD {totalCost.toFixed(2)}</strong>
+        Total Cost:{" "}
+        <strong>
+          USD{" "}
+          {!isNaN(totalCost)
+            ? totalCost.toFixed(2)
+            : "Please Reload this Page, and try again!"}
+        </strong>
       </p>
     </div>
   );

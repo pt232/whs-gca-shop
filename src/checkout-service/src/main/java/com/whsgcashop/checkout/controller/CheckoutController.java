@@ -4,7 +4,6 @@ import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
-import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +34,6 @@ public class CheckoutController {
     private static final Logger LOG = LoggerFactory.getLogger(CheckoutController.class);
 
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RateLimiter(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
-    @Bulkhead(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
-    @CircuitBreaker(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
-    @Retry(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
-    @TimeLimiter(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
     public CompletionStage<ResponseTemplate> getOrder() {
         LOG.info("Calling getOrder method inside CheckoutController class");
         return CompletableFuture.supplyAsync(() -> checkoutService.getOrder());
@@ -50,7 +44,6 @@ public class CheckoutController {
     @Bulkhead(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
     @CircuitBreaker(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
     @Retry(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
-    @TimeLimiter(name = "checkoutService", fallbackMethod = "checkoutServiceDefault")
     public CompletionStage<ResponseTemplate> createOrder(@RequestBody Order order) {
         LOG.info("Calling createOrder method inside CheckoutController class");
         return CompletableFuture.supplyAsync(() -> checkoutService.createOrder(order));

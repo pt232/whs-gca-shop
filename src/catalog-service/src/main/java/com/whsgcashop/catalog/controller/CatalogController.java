@@ -1,15 +1,9 @@
 package com.whsgcashop.catalog.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ThreadLocalRandom;
 
-import io.github.resilience4j.bulkhead.annotation.Bulkhead;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
-import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +32,6 @@ public class CatalogController {
     private static final Logger LOG = LoggerFactory.getLogger(CatalogController.class);
 
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RateLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Bulkhead(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @CircuitBreaker(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Retry(name = "catalogService", fallbackMethod = "catalogServiceDefault")
     @TimeLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
     public CompletionStage<List<Product>> getProducts() {
         LOG.info("Calling getProducts method inside CatalogController class");
@@ -49,33 +39,18 @@ public class CatalogController {
     }
 
     @GetMapping(path = "/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RateLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Bulkhead(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @CircuitBreaker(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Retry(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @TimeLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
     public CompletionStage<Product> getProductById(@PathVariable(name = "productId") Integer productId) {
         LOG.info("Calling getProductById method inside CatalogController class");
         return CompletableFuture.supplyAsync(() -> catalogService.getProductById(productId));
     }
 
     @PutMapping(path = "/")
-    @RateLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Bulkhead(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @CircuitBreaker(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Retry(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @TimeLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
     public CompletionStage<String> updateProductActiveStatus() {
         LOG.info("Calling updateProductActiveStatus method inside CatalogController class");
         return CompletableFuture.supplyAsync(() -> catalogService.updateProductActiveStatus());
     }
 
     @DeleteMapping(path = "/{productId}")
-    @RateLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Bulkhead(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @CircuitBreaker(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @Retry(name = "catalogService", fallbackMethod = "catalogServiceDefault")
-    @TimeLimiter(name = "catalogService", fallbackMethod = "catalogServiceDefault")
     public CompletionStage<Product> deleteProduct(@PathVariable(name = "productId") Integer productId) {
         LOG.info("Calling deleteProduct method inside CatalogController class");
         return CompletableFuture.supplyAsync(() -> catalogService.deleteProduct(productId));

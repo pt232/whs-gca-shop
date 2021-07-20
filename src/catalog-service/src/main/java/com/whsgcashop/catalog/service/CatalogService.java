@@ -56,7 +56,6 @@ public class CatalogService {
         LOG.info("Calling getProducts method inside CatalogService class");
 
         ResilienceUtils.randomTimeout();
-        ResilienceUtils.randomFail();
 
         List<Product> filteredProducts = new ArrayList<Product>();
 
@@ -72,9 +71,6 @@ public class CatalogService {
     public Product getProductById(int productId) {
         LOG.info("Calling getProductById method inside CatalogService class");
 
-        ResilienceUtils.randomTimeout();
-        ResilienceUtils.randomFail();
-
         for (int i = 0; i < productList.size(); i++) {
             Product p = productList.get(i);
             if (p.getId() == productId) {
@@ -87,9 +83,6 @@ public class CatalogService {
     public String updateProductActiveStatus() {
         LOG.info("Calling updateProductActiveStatus method inside CatalogService class");
 
-        ResilienceUtils.randomTimeout();
-        ResilienceUtils.randomFail();
-
         removedProductIdsList.clear();
 
         return "Updated Product Active Status";
@@ -97,9 +90,6 @@ public class CatalogService {
 
     public Product deleteProduct(int productId) {
         LOG.info("Calling deleteProduct method inside CatalogService class");
-
-        ResilienceUtils.randomTimeout();
-        ResilienceUtils.randomFail();
 
         for (Product p : productList) {
             if (p.getId() == productId) {

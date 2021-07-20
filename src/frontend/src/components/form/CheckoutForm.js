@@ -68,7 +68,9 @@ const CheckoutForm = () => {
       history.push("/cart/confirmation");
     } else {
       setLoading(false);
-      setError(res.data.message);
+      if (res.data === "The checkout could not be processed correctly.")
+        setError("An error occured. Please try again.");
+      else setError(res.data.message);
     }
   };
 
