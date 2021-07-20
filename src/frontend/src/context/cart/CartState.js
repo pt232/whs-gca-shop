@@ -25,10 +25,10 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntriesAmount = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/amount/", {
+      const res = await axios.get(`${process.env.CART_SERVICE}amount/`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 
@@ -47,10 +47,10 @@ export const CartProvider = ({ children }) => {
 
   const getTotalCost = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/cost/", {
+      const res = await axios.get(`${process.env.CART_SERVICE}cost/`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 
@@ -69,10 +69,10 @@ export const CartProvider = ({ children }) => {
 
   const getCartEntries = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/v1/cart/", {
+      const res = await axios.get(`${process.env.CART_SERVICE}`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 
@@ -92,14 +92,14 @@ export const CartProvider = ({ children }) => {
   const addCartEntry = async (productId) => {
     try {
       await axios.post(
-        "http://localhost:8081/api/v1/cart/",
+        `${process.env.CART_SERVICE}`,
         {
           productId: productId,
         },
         {
           auth: {
-            username: "user1",
-            password: "user1Pass",
+            username: process.env.AUTH_USERNAME,
+            password: process.env.AUTH_PASSWORD,
           },
         }
       );
@@ -118,10 +118,10 @@ export const CartProvider = ({ children }) => {
 
   const deleteCartEntries = async () => {
     try {
-      await axios.delete("http://localhost:8081/api/v1/cart/", {
+      await axios.delete(`${process.env.CART_SERVICE}`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 

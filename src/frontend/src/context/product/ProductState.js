@@ -16,10 +16,10 @@ export const ProductProvider = ({ children }) => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/v1/products/", {
+      const res = await axios.get(`${process.env.CATALOG_SERVICE}`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 
@@ -37,10 +37,10 @@ export const ProductProvider = ({ children }) => {
 
   const deleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/products/${productId}`, {
+      await axios.delete(`${process.env.CATALOG_SERVICE}${productId}`, {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       });
 

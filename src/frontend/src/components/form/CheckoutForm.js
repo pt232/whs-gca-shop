@@ -41,7 +41,7 @@ const CheckoutForm = () => {
     setLoading(true);
 
     const res = await axios.post(
-      "http://localhost:8083/api/v1/checkout/",
+      process.env.CHECKOUT_SERVICE,
       {
         email: email,
         street: address,
@@ -56,8 +56,8 @@ const CheckoutForm = () => {
       },
       {
         auth: {
-          username: "user1",
-          password: "user1Pass",
+          username: process.env.AUTH_USERNAME,
+          password: process.env.AUTH_PASSWORD,
         },
       }
     );
