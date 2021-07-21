@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gca-config
+data:
+  logger-level: INFO
+  host-address: http://gca-shop.local/

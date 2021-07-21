@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,9 @@ public class CartService {
     private List<CartEntry> cartEntries = new ArrayList<CartEntry>();
     private static final Logger LOG = LoggerFactory.getLogger(CartService.class);
 
+    @Value("${gca.host.property.value}")
+    private String hostName;
+
     public Integer getEntriesAmount() {
         LOG.info("Calling getEntriesAmount method inside CartService class");
         return cartEntries.size();
@@ -29,12 +33,12 @@ public class CartService {
         LOG.info("Calling getTotalCost method inside CartService class");
 
         double totalCost = 0.0;
-        double shippingCost = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/", Double.class);
+        double shippingCost = restTemplate.getForObject(hostName + "api/v1/shipping/", Double.class);
 
         totalCost += shippingCost;
 
         for (CartEntry cartEntry : cartEntries) {
-            Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
+            Product p = restTemplate.getForObject(hostName + "api/v1/products/" + cartEntry.getProductId(),
                     Product.class);
             totalCost += p.getPrice();
         }
@@ -48,7 +52,7 @@ public class CartService {
         List<Product> products = new ArrayList<Product>();
 
         for (CartEntry cartEntry : cartEntries) {
-            Product p = restTemplate.getForObject("http://localhost:8080/api/v1/products/" + cartEntry.getProductId(),
+            Product p = restTemplate.getForObject(hostName + "api/v1/products/" + cartEntry.getProductId(),
                     Product.class);
             products.add(p);
         }
@@ -70,7 +74,7 @@ public class CartService {
     public String deleteCartEntries() {
         LOG.info("Calling deleteCartEntries method inside CartService class");
 
-        restTemplate.put("http://localhost:8080/api/v1/products/", null);
+        restTemplate.put(hostName + "api/v1/products/", null);
         cartEntries.clear();
 
         return "Deleted Cart Entries";

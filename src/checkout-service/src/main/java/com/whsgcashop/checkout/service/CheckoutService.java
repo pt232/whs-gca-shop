@@ -10,6 +10,7 @@ import com.whsgcashop.checkout.utils.ResilienceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,120 +21,123 @@ import com.whsgcashop.checkout.model.ResponseTemplate;
 @Service
 public class CheckoutService {
 
-	@Autowired
-	private RestTemplate restTemplate;
-	private List<ResponseTemplate> resList = new ArrayList<ResponseTemplate>();
-	private static final Logger LOG = LoggerFactory.getLogger(CheckoutService.class);
+    @Autowired
+    private RestTemplate restTemplate;
+    private List<ResponseTemplate> resList = new ArrayList<ResponseTemplate>();
+    private static final Logger LOG = LoggerFactory.getLogger(CheckoutService.class);
 
-	public ResponseTemplate getOrder() {
-		LOG.info("Calling getOrder method inside CheckoutService class");
-		return resList.get(resList.size() - 1);
-	}
+    @Value("${gca.host.property.value}")
+    private String hostName;
 
-	public ResponseTemplate createOrder(Order order) {
-		LOG.info("Calling createOrder method inside CheckoutService class");
+    public ResponseTemplate getOrder() {
+        LOG.info("Calling getOrder method inside CheckoutService class");
+        return resList.get(resList.size() - 1);
+    }
 
-		ResilienceUtils.randomFail();
+    public ResponseTemplate createOrder(Order order) {
+        LOG.info("Calling createOrder method inside CheckoutService class");
 
-		ResponseTemplate resTemplate = new ResponseTemplate();
+        ResilienceUtils.randomFail();
 
-		String mailRegex = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
-		String zipcodeRegex = "\\d{4,5}";
-		String creditCardRegex = "\\d{4}-\\d{4}-\\d{4}-\\d{4}";
-		String cvvRegex = "\\d{3}";
+        ResponseTemplate resTemplate = new ResponseTemplate();
 
-		if (order.getEmail() == null || order.getStreet() == null || order.getZipcode() == null
-				|| order.getCity() == null || order.getState() == null || order.getCountry() == null
-				|| order.getCreditCardNumber() == null || order.getMonth() == null || (Integer) order.getYear() == null
-				|| order.getCvv() == null) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("One or more fields are empty.");
-			return resTemplate;
-		}
+        String mailRegex = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+        String zipcodeRegex = "\\d{4,5}";
+        String creditCardRegex = "\\d{4}-\\d{4}-\\d{4}-\\d{4}";
+        String cvvRegex = "\\d{3}";
 
-		if (!validateUserInput(mailRegex, order.getEmail())) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("Plase enter a valid e-mail address.");
-			return resTemplate;
-		}
+        if (order.getEmail() == null || order.getStreet() == null || order.getZipcode() == null
+                || order.getCity() == null || order.getState() == null || order.getCountry() == null
+                || order.getCreditCardNumber() == null || order.getMonth() == null || (Integer) order.getYear() == null
+                || order.getCvv() == null) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("One or more fields are empty.");
+            return resTemplate;
+        }
 
-		if (!validateUserInput(zipcodeRegex, order.getZipcode())) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("Plase enter a valid zip code.");
-			return resTemplate;
-		}
+        if (!validateUserInput(mailRegex, order.getEmail())) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("Please enter a valid e-mail address.");
+            return resTemplate;
+        }
 
-		if (!validateUserInput(creditCardRegex, order.getCreditCardNumber())
-				|| order.getCreditCardNumber().equals("0000-0000-0000-0000")) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("Plase enter a valid credit card number.");
-			return resTemplate;
-		}
+        if (!validateUserInput(zipcodeRegex, order.getZipcode())) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("Please enter a valid zip code.");
+            return resTemplate;
+        }
 
-		if (!validateUserInput(cvvRegex, order.getCvv())) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("Plase enter a valid CVV.");
-			return resTemplate;
-		}
+        if (!validateUserInput(creditCardRegex, order.getCreditCardNumber())
+                || order.getCreditCardNumber().equals("0000-0000-0000-0000")) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("Please enter a valid credit card number.");
+            return resTemplate;
+        }
 
-		if (!validateDate(order.getMonth(), order.getYear())) {
-			resTemplate.setSuccess(false);
-			resTemplate.setMessage("Plase enter a valid time period.");
-			return resTemplate;
-		}
+        if (!validateUserInput(cvvRegex, order.getCvv())) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("Please enter a valid CVV.");
+            return resTemplate;
+        }
 
-		Product[] products = restTemplate.getForObject("http://localhost:8081/api/v1/cart/", Product[].class);
-		String trackingNumber = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/tracking/",
-				String.class);
-		Double shippingCost = restTemplate.getForObject("http://localhost:8082/api/v1/shipping/", Double.class);
-		Double totalCost = restTemplate.getForObject("http://localhost:8081/api/v1/cart/cost/", Double.class);
+        if (!validateDate(order.getMonth(), order.getYear())) {
+            resTemplate.setSuccess(false);
+            resTemplate.setMessage("Please enter a valid time period.");
+            return resTemplate;
+        }
 
-		order.setTrackingNumber(trackingNumber);
-		order.setOrderNumber(generateOrderNumber());
-		order.setShippingCost(shippingCost);
-		order.setTotalCost(totalCost);
+        Product[] products = restTemplate.getForObject(hostName + "api/v1/cart/", Product[].class);
+        String trackingNumber = restTemplate.getForObject(hostName + "api/v1/shipping/tracking/",
+                String.class);
+        Double shippingCost = restTemplate.getForObject(hostName + "api/v1/shipping/", Double.class);
+        Double totalCost = restTemplate.getForObject(hostName + "api/v1/cart/cost/", Double.class);
 
-		restTemplate.delete("http://localhost:8081/api/v1/cart/");
+        order.setTrackingNumber(trackingNumber);
+        order.setOrderNumber(generateOrderNumber());
+        order.setShippingCost(shippingCost);
+        order.setTotalCost(totalCost);
 
-		resTemplate.setSuccess(true);
-		resTemplate.setMessage("Everything went fine.");
-		resTemplate.setOrder(order);
-		resTemplate.setProducts(Arrays.asList(products));
+        restTemplate.delete(hostName + "api/v1/cart/");
 
-		resList.add(resTemplate);
+        resTemplate.setSuccess(true);
+        resTemplate.setMessage("Everything went fine.");
+        resTemplate.setOrder(order);
+        resTemplate.setProducts(Arrays.asList(products));
 
-		return resTemplate;
-	}
+        resList.add(resTemplate);
 
-	private boolean validateUserInput(String regex, String input) {
-		LOG.info("Calling validateUserInput method inside CheckoutService class");
+        return resTemplate;
+    }
 
-		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(input);
-		return matcher.matches();
-	}
+    private boolean validateUserInput(String regex, String input) {
+        LOG.info("Calling validateUserInput method inside CheckoutService class");
 
-	private boolean validateDate(String month, int year) {
-		LOG.info("Calling validateDate method inside CheckoutService class");
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
 
-		String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
-				"Oktober", "November", "December" };
-		return Arrays.asList(months).contains(month) && year >= 2021 && year <= 2025;
-	}
+    private boolean validateDate(String month, int year) {
+        LOG.info("Calling validateDate method inside CheckoutService class");
 
-	private String generateOrderNumber() {
-		LOG.info("Calling generateOrderNumber method inside CheckoutService class");
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
+                "Oktober", "November", "December"};
+        return Arrays.asList(months).contains(month) && year >= 2021 && year <= 2025;
+    }
 
-		int low = 100000000;
-		int high = 999999999;
-		int randomNumber = low + (int) (Math.random() * (high - low + 1));
+    private String generateOrderNumber() {
+        LOG.info("Calling generateOrderNumber method inside CheckoutService class");
 
-		StringBuilder orderNumber = new StringBuilder(String.valueOf(randomNumber));
+        int low = 100000000;
+        int high = 999999999;
+        int randomNumber = low + (int) (Math.random() * (high - low + 1));
 
-		orderNumber.setCharAt(2, '-');
-		orderNumber.setCharAt(6, '-');
+        StringBuilder orderNumber = new StringBuilder(String.valueOf(randomNumber));
 
-		return orderNumber.toString();
-	}
+        orderNumber.setCharAt(2, '-');
+        orderNumber.setCharAt(6, '-');
+
+        return orderNumber.toString();
+    }
 
 }

@@ -24,7 +24,7 @@ import com.whsgcashop.catalog.service.CatalogService;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://gca-shop.local")
 public class CatalogController {
 
     @Autowired

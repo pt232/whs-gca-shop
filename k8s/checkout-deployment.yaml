@@ -17,3 +17,14 @@ spec:
           image: pt232/checkout-service
           ports:
             - containerPort: 8083
+          env:
+            - name: LOGGER_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: gca-config
+                  key: logger-level
+            - name: HOST_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: gca-config
+                  key: host-address

@@ -1,7 +1,9 @@
 server:
   port: 8082
 
-logging.level.com.whsgcashop.shipping: INFO
+logging.level.com.whsgcashop.cart: ${LOGGER_LEVEL:INFO}
+
+gca.host.property.value: ${HOST_ADDRESS:http://gca-shop.local/}
 
 resilience4j.timelimiter:
   instances:

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://gca-shop.local")
 @RequestMapping(path = "/api/v1/checkout")
 public class CheckoutController {
 

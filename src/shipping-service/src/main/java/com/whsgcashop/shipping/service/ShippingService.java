@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,10 +18,13 @@ public class ShippingService {
     private RestTemplate restTemplate;
     private static final Logger LOG = LoggerFactory.getLogger(ShippingService.class);
 
+    @Value("${gca.host.property.value}")
+    private String hostName;
+
     public Double getShippingCost() {
         LOG.info("Calling getShippingCost method inside ShippingService class");
 
-        Product[] products = restTemplate.getForObject("http://localhost:8081/api/v1/cart/", Product[].class);
+        Product[] products = restTemplate.getForObject(hostName + "api/v1/cart/", Product[].class);
         double totalCost = 0;
 
         for (Product p : products) {

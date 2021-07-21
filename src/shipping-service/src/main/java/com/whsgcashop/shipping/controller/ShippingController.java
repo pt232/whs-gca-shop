@@ -16,7 +16,7 @@ import java.util.concurrent.CompletionStage;
 
 @RestController
 @RequestMapping(path = "/api/v1/shipping")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://gca-shop.local")
 public class ShippingController {
 
 	@Autowired

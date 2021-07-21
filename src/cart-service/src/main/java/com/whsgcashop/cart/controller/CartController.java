@@ -22,7 +22,7 @@ import com.whsgcashop.cart.service.CartService;
 
 @RestController
 @RequestMapping(path = "/api/v1/cart")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://gca-shop.local")
 public class CartController {
 
     @Autowired

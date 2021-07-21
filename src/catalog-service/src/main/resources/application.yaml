@@ -1,7 +1,7 @@
 server:
   port: 8080
 
-logging.level.com.whsgcashop.catalog: INFO
+logging.level.com.whsgcashop.catalog: ${LOGGER_LEVEL:INFO}
 
 resilience4j.timelimiter:
   instances:
