@@ -38,3 +38,23 @@ spec:
                 secretKeyRef:
                   name: gca-secret
                   key: checkout-password
+            - name: CART_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: cart-user
+            - name: CART_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: cart-password
+            - name: SHIPPING_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: shipping-user
+            - name: SHIPPING_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: shipping-password

@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.whsgcashop.checkout.utils.MyBasicAuth;
 import com.whsgcashop.checkout.utils.ResilienceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +30,16 @@ public class CheckoutService {
 
     @Value("${gca.host.property.value}")
     private String hostName;
+
+    @Value("${gca.user.cart.property.value}")
+    private String cartUser;
+    @Value("${gca.password.cart.property.value}")
+    private String cartPass;
+
+    @Value("${gca.user.shipping.property.value}")
+    private String shippingUser;
+    @Value("${gca.password.shipping.property.value}")
+    private String shippingPass;
 
     public ResponseTemplate getOrder() {
         LOG.info("Calling getOrder method inside CheckoutService class");
@@ -86,18 +98,27 @@ public class CheckoutService {
             return resTemplate;
         }
 
-        Product[] products = restTemplate.getForObject(hostName + "api/v1/cart/", Product[].class);
-        String trackingNumber = restTemplate.getForObject(hostName + "api/v1/shipping/tracking/",
-                String.class);
-        Double shippingCost = restTemplate.getForObject(hostName + "api/v1/shipping/", Double.class);
-        Double totalCost = restTemplate.getForObject(hostName + "api/v1/cart/cost/", Double.class);
+        Product[] products = restTemplate.exchange(hostName + "api/v1/cart/",
+                HttpMethod.GET, MyBasicAuth.getHeaders(cartUser, cartPass),
+                Product[].class).getBody();
+        String trackingNumber = restTemplate.exchange(hostName + "api/v1/shipping/tracking/",
+                HttpMethod.GET, MyBasicAuth.getHeaders(shippingUser, shippingPass),
+                String.class).getBody();
+        Double shippingCost = restTemplate.exchange(hostName + "api/v1/shipping/",
+                HttpMethod.GET, MyBasicAuth.getHeaders(shippingUser, shippingPass),
+                Double.class).getBody();
+        Double totalCost = restTemplate.exchange(hostName + "api/v1/cart/cost/",
+                HttpMethod.GET, MyBasicAuth.getHeaders(cartUser, cartPass),
+                Double.class).getBody();
 
         order.setTrackingNumber(trackingNumber);
         order.setOrderNumber(generateOrderNumber());
         order.setShippingCost(shippingCost);
         order.setTotalCost(totalCost);
 
-        restTemplate.delete(hostName + "api/v1/cart/");
+        restTemplate.exchange(hostName + "api/v1/cart/", HttpMethod.DELETE,
+                MyBasicAuth.getHeaders(cartUser, cartPass),
+                String.class);
 
         resTemplate.setSuccess(true);
         resTemplate.setMessage("Everything went fine.");

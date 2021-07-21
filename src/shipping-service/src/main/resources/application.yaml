@@ -8,6 +8,9 @@ gca.host.property.value: ${HOST_ADDRESS:http://gca-shop.local/}
 gca.user.property.value: ${SHIPPING_USER:shippingUser}
 gca.password.property.value: ${SHIPPING_PASSWORD:shippingPass}
 
+gca.user.cart.property.value: ${CART_USER:cartUser}
+gca.password.cart.property.value: ${CART_PASSWORD:cartPass}
+
 resilience4j.timelimiter:
   instances:
     shippingService:

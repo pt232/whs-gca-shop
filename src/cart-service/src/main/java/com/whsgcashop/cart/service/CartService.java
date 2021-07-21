@@ -3,10 +3,12 @@ package com.whsgcashop.cart.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.whsgcashop.cart.utils.MyBasicAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +26,16 @@ public class CartService {
     @Value("${gca.host.property.value}")
     private String hostName;
 
+    @Value("${gca.user.shipping.property.value}")
+    private String shippingUser;
+    @Value("${gca.password.shipping.property.value}")
+    private String shippingPass;
+
+    @Value("${gca.user.catalog.property.value}")
+    private String catalogUser;
+    @Value("${gca.password.catalog.property.value}")
+    private String catalogPass;
+
     public Integer getEntriesAmount() {
         LOG.info("Calling getEntriesAmount method inside CartService class");
         return cartEntries.size();
@@ -33,13 +45,16 @@ public class CartService {
         LOG.info("Calling getTotalCost method inside CartService class");
 
         double totalCost = 0.0;
-        double shippingCost = restTemplate.getForObject(hostName + "api/v1/shipping/", Double.class);
+        double shippingCost = restTemplate.exchange(hostName + "api/v1/shipping/",
+                HttpMethod.GET, MyBasicAuth.getHeaders(shippingUser, shippingPass)
+                , Double.class).getBody();
 
         totalCost += shippingCost;
 
         for (CartEntry cartEntry : cartEntries) {
-            Product p = restTemplate.getForObject(hostName + "api/v1/products/" + cartEntry.getProductId(),
-                    Product.class);
+            Product p = restTemplate.exchange(hostName + "api/v1/products/" + cartEntry.getProductId(),
+                    HttpMethod.GET, MyBasicAuth.getHeaders(catalogUser, catalogPass),
+                    Product.class).getBody();
             totalCost += p.getPrice();
         }
 
@@ -52,8 +67,9 @@ public class CartService {
         List<Product> products = new ArrayList<Product>();
 
         for (CartEntry cartEntry : cartEntries) {
-            Product p = restTemplate.getForObject(hostName + "api/v1/products/" + cartEntry.getProductId(),
-                    Product.class);
+            Product p = restTemplate.exchange(hostName + "api/v1/products/" + cartEntry.getProductId(),
+                    HttpMethod.GET, MyBasicAuth.getHeaders(catalogUser, catalogPass),
+                    Product.class).getBody();
             products.add(p);
         }
 
@@ -74,7 +90,8 @@ public class CartService {
     public String deleteCartEntries() {
         LOG.info("Calling deleteCartEntries method inside CartService class");
 
-        restTemplate.put(hostName + "api/v1/products/", null);
+        restTemplate.exchange(hostName + "api/v1/products/", HttpMethod.PUT,
+                MyBasicAuth.getHeaders(catalogUser, catalogPass), String.class);
         cartEntries.clear();
 
         return "Deleted Cart Entries";
