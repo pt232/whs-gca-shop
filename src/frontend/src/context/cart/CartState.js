@@ -29,8 +29,8 @@ export const CartProvider = ({ children }) => {
         `${process.env.REACT_APP_CART_SERVICE}amount/`,
         {
           auth: {
-            username: process.env.REACT_APP_AUTH_USERNAME,
-            password: process.env.REACT_APP_AUTH_PASSWORD,
+            username: process.env.REACT_APP_CART_USERNAME,
+            password: process.env.REACT_APP_CART_PASSWORD,
           },
         }
       );
@@ -54,8 +54,8 @@ export const CartProvider = ({ children }) => {
         `${process.env.REACT_APP_CART_SERVICE}cost/`,
         {
           auth: {
-            username: process.env.REACT_APP_AUTH_USERNAME,
-            password: process.env.REACT_APP_AUTH_PASSWORD,
+            username: process.env.REACT_APP_CART_USERNAME,
+            password: process.env.REACT_APP_CART_PASSWORD,
           },
         }
       );
@@ -77,8 +77,8 @@ export const CartProvider = ({ children }) => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_CART_SERVICE}`, {
         auth: {
-          username: process.env.REACT_APP_AUTH_USERNAME,
-          password: process.env.REACT_APP_AUTH_PASSWORD,
+          username: process.env.REACT_APP_CART_USERNAME,
+          password: process.env.REACT_APP_CART_PASSWORD,
         },
       });
 
@@ -104,8 +104,8 @@ export const CartProvider = ({ children }) => {
         },
         {
           auth: {
-            username: process.env.REACT_APP_AUTH_USERNAME,
-            password: process.env.REACT_APP_AUTH_PASSWORD,
+            username: process.env.REACT_APP_CART_USERNAME,
+            password: process.env.REACT_APP_CART_PASSWORD,
           },
         }
       );
@@ -126,8 +126,8 @@ export const CartProvider = ({ children }) => {
     try {
       await axios.delete(`${process.env.REACT_APP_CART_SERVICE}`, {
         auth: {
-          username: process.env.REACT_APP_AUTH_USERNAME,
-          password: process.env.REACT_APP_AUTH_PASSWORD,
+          username: process.env.REACT_APP_CART_USERNAME,
+          password: process.env.REACT_APP_CART_PASSWORD,
         },
       });
 

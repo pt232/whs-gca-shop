@@ -18,8 +18,8 @@ export const CheckoutProvider = ({ children }) => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_CHECKOUT_SERVICE}`, {
         auth: {
-          username: process.env.REACT_APP_AUTH_USERNAME,
-          password: process.env.REACT_APP_AUTH_PASSWORD,
+          username: process.env.REACT_APP_CHECKOUT_USERNAME,
+          password: process.env.REACT_APP_CHECKOUT_PASSWORD,
         },
       });
 

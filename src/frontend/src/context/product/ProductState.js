@@ -18,8 +18,8 @@ export const ProductProvider = ({ children }) => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_CATALOG_SERVICE}`, {
         auth: {
-          username: process.env.REACT_APP_AUTH_USERNAME,
-          password: process.env.REACT_APP_AUTH_PASSWORD,
+          username: process.env.REACT_APP_CATALOG_USERNAME,
+          password: process.env.REACT_APP_CATALOG_PASSWORD,
         },
       });
 
@@ -41,8 +41,8 @@ export const ProductProvider = ({ children }) => {
         `${process.env.REACT_APP_CATALOG_SERVICE}${productId}`,
         {
           auth: {
-            username: process.env.REACT_APP_AUTH_USERNAME,
-            password: process.env.REACT_APP_AUTH_PASSWORD,
+            username: process.env.REACT_APP_CATALOG_USERNAME,
+            password: process.env.REACT_APP_CATALOG_PASSWORD,
           },
         }
       );

@@ -17,8 +17,8 @@ export const ShippingProvider = ({ children }) => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_SHIPPING_SERVICE}`, {
         auth: {
-          username: process.env.REACT_APP_AUTH_USERNAME,
-          password: process.env.REACT_APP_AUTH_PASSWORD,
+          username: process.env.REACT_APP_SHIPPING_USERNAME,
+          password: process.env.REACT_APP_SHIPPING_PASSWORD,
         },
       });
 
