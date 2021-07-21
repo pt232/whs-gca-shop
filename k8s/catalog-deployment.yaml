@@ -23,3 +23,13 @@ spec:
                 configMapKeyRef:
                   name: gca-config
                   key: logger-level
+            - name: CATALOG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: catalog-user
+            - name: CATALOG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: catalog-password

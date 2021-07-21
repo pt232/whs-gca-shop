@@ -28,3 +28,13 @@ spec:
                 configMapKeyRef:
                   name: gca-config
                   key: host-address
+            - name: CHECKOUT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: checkout-user
+            - name: CHECKOUT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: checkout-password

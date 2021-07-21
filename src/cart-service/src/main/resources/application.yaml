@@ -5,6 +5,9 @@ logging.level.com.whsgcashop.cart: ${LOGGER_LEVEL:INFO}
 
 gca.host.property.value: ${HOST_ADDRESS:http://gca-shop.local/}
 
+gca.user.property.value: ${CART_USER:cartUser}
+gca.password.property.value: ${CART_PASSWORD:cartPass}
+
 resilience4j.timelimiter:
   instances:
     cartService:

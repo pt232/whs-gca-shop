@@ -28,3 +28,13 @@ spec:
                 configMapKeyRef:
                   name: gca-config
                   key: host-address
+            - name: CART_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: cart-user
+            - name: CART_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: cart-password

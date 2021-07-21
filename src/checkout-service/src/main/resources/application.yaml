@@ -5,6 +5,9 @@ logging.level.com.whsgcashop.cart: ${LOGGER_LEVEL:INFO}
 
 gca.host.property.value: ${HOST_ADDRESS:http://gca-shop.local/}
 
+gca.user.property.value: ${CHECKOUT_USER:checkoutUser}
+gca.password.property.value: ${CHECKOUT_PASSWORD:checkoutPass}
+
 resilience4j.timelimiter:
   instances:
     checkoutService:

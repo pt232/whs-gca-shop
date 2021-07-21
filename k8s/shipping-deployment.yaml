@@ -28,3 +28,13 @@ spec:
                 configMapKeyRef:
                   name: gca-config
                   key: host-address
+            - name: SHIPPING_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: shipping-user
+            - name: SHIPPING_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gca-secret
+                  key: shipping-password

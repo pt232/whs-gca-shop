@@ -3,6 +3,9 @@ server:
 
 logging.level.com.whsgcashop.catalog: ${LOGGER_LEVEL:INFO}
 
+gca.user.property.value: ${CATALOG_USER:catalogUser}
+gca.password.property.value: ${CATALOG_PASSWORD:catalogPass}
+
 resilience4j.timelimiter:
   instances:
     catalogService:
