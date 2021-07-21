@@ -41,7 +41,7 @@ const CheckoutForm = () => {
     setLoading(true);
 
     const res = await axios.post(
-      process.env.REACT_APP_REACT_APP_CHECKOUT_SERVICE,
+      process.env.REACT_APP_CHECKOUT_SERVICE,
       {
         email: email,
         street: address,
