@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: catalog
+        tier: application
     spec:
       containers:
         - name: catalog
