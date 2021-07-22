@@ -17,6 +17,11 @@ spec:
           image: pt232/checkout-service
           ports:
             - containerPort: 8083
+          resources:
+            requests:
+              cpu: 200m
+            limits:
+              cpu: 500m
           env:
             - name: LOGGER_LEVEL
               valueFrom:
@@ -58,3 +63,16 @@ spec:
                 secretKeyRef:
                   name: gca-secret
                   key: shipping-password
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: checkout-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: checkout-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
