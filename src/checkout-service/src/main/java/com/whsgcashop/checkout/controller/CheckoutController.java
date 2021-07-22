@@ -49,6 +49,16 @@ public class CheckoutController {
         return CompletableFuture.supplyAsync(() -> checkoutService.createOrder(order));
     }
 
+    @GetMapping(path = "/hpa-test")
+    public void getMeTested() {
+        LOG.info("Starting Load Test");
+        double x = 0.0001;
+        for(int i = 0; i <= 1000000000; i++) {
+            x += Math.sqrt(x);
+        }
+        LOG.info("Finished Load Test");
+    }
+
     private CompletionStage<ResponseEntity<String>> checkoutServiceDefault(Throwable throwable) {
         LOG.info("Calling checkoutServiceDefault inside CheckoutController class");
         ResponseEntity<String> response =

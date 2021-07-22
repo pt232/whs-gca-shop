@@ -7,6 +7,7 @@ import { ShippingProvider } from "../context/shipping/ShippingState";
 import CartPage from "../pages/cart/CartPage";
 import ConfirmationPage from "../pages/confirmation/ConfirmationPage";
 import HomePage from "../pages/home/HomePage";
+import HpaTest from "../pages/test/HpaTest";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
 
@@ -22,6 +23,7 @@ const App = () => {
                 <Route path="/" exact component={HomePage} />
                 <Route path="/cart" exact component={CartPage} />
                 <Route path="/cart/confirmation" component={ConfirmationPage} />
+                <Route path="/test" component={HpaTest} />
               </Switch>
               <Footer />
             </Router>
