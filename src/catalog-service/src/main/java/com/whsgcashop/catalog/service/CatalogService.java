@@ -48,7 +48,7 @@ public class CatalogService {
                 "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/air-plant.jpg",
                 "Air Plant", 12.29));
         productList.add(new Product(10,
-                "https://images.unsplash.com/photo-1526280760714-f9e8b26f318f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/journal.jpg",
                 "Clean Journal", 9.78));
     }
 
