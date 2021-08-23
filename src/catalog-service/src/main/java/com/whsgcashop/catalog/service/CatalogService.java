@@ -21,7 +21,7 @@ public class CatalogService {
         LOG.info("Adding static Products for the Catalog Service");
 
         productList.add(new Product(1,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/typewriter.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/typewriter.jpg",
                 "Vintage Typewriter", 67.98));
         productList.add(new Product(2,
                 "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/camera-lens.jpg",
