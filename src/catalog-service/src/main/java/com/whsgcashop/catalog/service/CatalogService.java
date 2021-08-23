@@ -24,28 +24,28 @@ public class CatalogService {
                 "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/typewriter.jpg",
                 "Vintage Typewriter", 67.98));
         productList.add(new Product(2,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/camera-lens.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/camera-lens.jpg",
                 "Vintage Camera Lens", 12.48));
         productList.add(new Product(3,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/barista-kit.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/barista-kit.jpg",
                 "Home Barista Kit", 123.99));
         productList.add(new Product(4,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/terrarium.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/terrarium.jpg",
                 "Terrarium", 36.44));
         productList.add(new Product(5,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/film-camera.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/film-camera.jpg",
                 "Film Camera", 2244.99));
         productList.add(new Product(6,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/record-player.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/record-player.jpg",
                 "Vintage Record Player", 65.50));
         productList.add(new Product(7,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/camp-mug.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/camp-mug.jpg",
                 "Metal Clamping Mug", 24.33));
         productList.add(new Product(8,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/city-bike.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/city-bike.jpg",
                 "City Bike", 789.50));
         productList.add(new Product(9,
-                "https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/src/frontend/static/img/products/air-plant.jpg",
+                "https://raw.githubusercontent.com/pt232/whs-gca-shop/master/src/catalog-service/src/main/resources/images/air-plant.jpg",
                 "Air Plant", 12.29));
         productList.add(new Product(10,
                 "https://images.unsplash.com/photo-1526280760714-f9e8b26f318f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
