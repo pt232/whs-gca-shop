@@ -10,6 +10,7 @@
 
 .product-card__wrapper {
   position: relative;
+  height: 20rem;
 }
 
 .product-card--horizontal .product-card__wrapper {
